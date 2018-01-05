@@ -66,7 +66,7 @@ class FeatureContext extends RawMinkContext implements Context
      * @Given I am logged in as an admin
      */
     public function iAmLoggedInAsAnAdmin()
-    {
+    {   $this->visitPath("/admin.php");
         $this->iLoginWithUsernameAndPassword("admin","mypass");
     }
 
@@ -83,7 +83,9 @@ class FeatureContext extends RawMinkContext implements Context
      */
     public function iFillTheFollowingDetails(TableNode $table)
     {
-        throw new PendingException();
+     foreach($table as $row){
+         var_dump($row);
+     }
     }
 
     /**
@@ -109,6 +111,7 @@ class FeatureContext extends RawMinkContext implements Context
      */
     public function iAmOnThePage()
     {
-        throw new PendingException();
+        $this->getSession()->getPage()->find('xpath','//a[@href="admin.php?action=newArticle"]')->click();
+        sleep(5);
     }
 }
