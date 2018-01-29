@@ -140,22 +140,30 @@ class FeatureContext extends RawMinkContext implements Context {
 	}
 
     /**
-     * @Then the article with the title :title and date :date should be listed
+     * @Then a notification should be displayed with the text :notification
      */
-    public function theArticleShouldBeListed($title,$date)
+    public function aNotificationShouldBeDisplayedWithTheText($notification)
     {
-        $titleElement = $this->getSession()->getPage()->find('xpath', '//tr/td[2][text()[normalize-space()="'.$title.'"]]');
-        $dateElement = $this->getSession()->getPage()->find('xpath','//tr/td[1][text()[normalize-space()="'.$date.'"]]');
-        if($dateElement === NULL || trim($dateElement->getHtml()) !== $date)
-        {
-            throw new \Exception("Expected article with date does not exist");
-        }
-        if ($titleElement === NULL || trim($titleElement->getHtml() ) !== $title)
-        {
-            throw new \Exception("Expected article with title does not exist");
-        }
+    	$realNotification = $this->getSession()->getPage()->find('xpath', '//div[@class="statusMessage"]');
+    	if ($realNotification->getHtml()!=$notification) {
+    		throw new \Exception("notification does not match the expected");
+    	}
     }
-	
+
+	/**
+	 * @Then the article with the title :title and date :date should be listed
+	 */
+	public function theArticleShouldBeListed($title, $date) {
+		$titleElement = $this->adminPage->getTitle ($title);
+		$dateElement = $this->adminPage->getDate ($date);
+		if ($dateElement === NULL || $dateElement !== $date) {
+			throw new \Exception ("Expected article with date does not exist");
+		}
+		if ($titleElement === NULL || $titleElement !== $title) {
+			throw new \Exception ("Expected article with title does not exist");
+		}
+	}
+
 	/**
 	 * @When I open the article with the title :title
 	 * 
