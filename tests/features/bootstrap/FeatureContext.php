@@ -184,10 +184,7 @@ class FeatureContext extends RawMinkContext implements Context {
 	 * @return void
 	 */
 	public function aMessageBoxMustAppearWithTheMessage($comment) {
-		$message = $this->getSession()
-			->getDriver()
-			->getWebDriverSession()
-			->getAlert_text();
+		$message = $this->editPage->getAlertMessage();
 		if ($message !== $comment) {
 			throw new \Exception("message does not match the expected");
 		}
