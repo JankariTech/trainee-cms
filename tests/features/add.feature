@@ -19,7 +19,7 @@ So that I can give extra information to the user
 		And I save the changes
 		Then I should be redirected to the page with the title "All Articles"
 		And the article with the title "<title>" and date "<displaydate>" should be listed
-		And a notification should be displayed with the text "Your changes have been saved."
+		And a message should be displayed with the text "Your changes have been saved."
 		Examples:
 		|title|summary|content      |date       |displaydate|
 		|test234|ram kills rawan|main characters are ram, laxman, sita and ravan|02/03/1971|3 Feb 1971|

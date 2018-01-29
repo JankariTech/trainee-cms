@@ -192,10 +192,7 @@ class FeatureContext extends RawMinkContext implements Context {
 	 * @return void
 	 */
 	public function aMessageBoxMustAppearWithTheMessage($comment) {
-		$message = $this->getSession()
-			->getDriver()
-			->getWebDriverSession()
-			->getAlert_text();
+		$message = $this->editPage->getAlertMessage();
 		if ($message !== $comment) {
 			throw new \Exception("message does not match the expected");
 		}
@@ -208,16 +205,20 @@ class FeatureContext extends RawMinkContext implements Context {
     {
         $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
     }
-    /**
-     * @Then a message should be displayed with the text :message
-     */
-    public function aMessageShouldBeDisplayedWithTheText($message)
-    {
-        $realMessage = $this->getSession()->getPage()->find('xpath', '//div[@class="statusMessage"]');
-        if ($realMessage->getHtml()!==$message) {
-            throw new \Exception("notification does not match the expected");
-        }
-    }
+
+	/**
+	 * @Then a message should be displayed with the text :message
+	 * 
+	 * @param string $message
+	 * 
+	 * @return void
+	 */
+	public function aMessageShouldBeDisplayedWithTheText($message) {
+		$realMessage = $this->loginPage->getStatusMessage();
+		if ($realMessage !== $message) {
+			throw new \Exception("notification does not match the expected");
+		}
+	}
     /**
      * @Then the article with the title :title should not be listed
      */

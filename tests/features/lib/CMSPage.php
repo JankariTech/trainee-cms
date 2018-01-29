@@ -7,6 +7,7 @@
 namespace Page;
 
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
+use Behat\Mink\Driver\DriverInterface;
 
 /**
  * PageObject for the common functions and methods 
@@ -25,5 +26,13 @@ class CMSPage extends Page{
 	 */
 	function getPageTitle() {
 		return $this->find('xpath', $this->xpathOfPageTitle);
+	}
+	/**
+	 * @return string
+	 */
+	function getAlertMessage() {
+		return $this->getDriver()
+		->getWebDriverSession()
+		->getAlert_text();
 	}
 }

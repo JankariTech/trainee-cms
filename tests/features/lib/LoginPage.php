@@ -20,6 +20,7 @@ class LoginPage extends CMSPage {
 	protected $passwordInputBoxName = "password";
 	protected $errorMessageXpath = '//div[@class="errorMessage"]';
 	protected $path = '/admin.php';
+	protected $xpathOfStatusMessage = '//div[@class="statusMessage"]';
 	
 	/**
 	 *
@@ -68,5 +69,14 @@ class LoginPage extends CMSPage {
 	function getErrorMessage() {
 		$realErrorMessage = $this->find('xpath', $this->errorMessageXpath);
 		return $realErrorMessage->getHtml();
+	}
+	
+	/**
+	 *
+	 * @return string
+	 */
+	function getStatusMessage() {
+		$realStatusMessage = $this->find('xpath', $this->xpathOfStatusMessage);
+		return $realStatusMessage->getHtml();
 	}
 }
